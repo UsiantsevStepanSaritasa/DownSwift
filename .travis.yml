@@ -2,6 +2,6 @@ language: Swift
 
 osx_image: xcode12.2
 xcode_project: DownSwift.xcodeproj
-xcode_scheme: DownSwiftTests
+xcode_scheme: DownSwift
 xcode_sdk: iphonesimulator14.2
 
