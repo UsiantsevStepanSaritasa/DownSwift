@@ -8,12 +8,14 @@
 import UIKit
 
 final class DownSwift {
+    public init() {}
+
     /**
      Parses given string that has defined style areas with given config and returns attributed string.
      
      - Parameters:
-     - string: String with defined text style areas.
-     - config: An entity for managing markdown's configuration.
+       - string: String with defined text style areas.
+       - config: An entity for managing markdown's configuration.
      
      - Warning
      Text style areas have to be put straight one after another in string. Don't mix different text styles.

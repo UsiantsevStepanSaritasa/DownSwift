@@ -24,13 +24,35 @@ import UIKit
  - **strikethroughLineColor**: Color for strikethrough line (default value: `UIColor.black`).
 */
 public struct MarkdownConfig {
-    var regularFont: UIFont = .systemFont(ofSize: 17)
-    var regularFontColor: UIColor = .black
-    var boldFont: UIFont = .boldSystemFont(ofSize: 17)
-    var boldColor: UIColor = .black
-    var italicFont: UIFont = .italicSystemFont(ofSize: 17)
-    var italicColor: UIColor = .black
-    var strikethroughFont: UIFont = .systemFont(ofSize: 17)
-    var strikethroughFontColor: UIColor = .black
-    var strikethroughLineColor: UIColor = .black
+    var regularFont: UIFont
+    var regularFontColor: UIColor
+    var boldFont: UIFont
+    var boldColor: UIColor
+    var italicFont: UIFont
+    var italicColor: UIColor
+    var strikethroughFont: UIFont
+    var strikethroughFontColor: UIColor
+    var strikethroughLineColor: UIColor
+    
+    public init(
+        regularFont: UIFont = .systemFont(ofSize: 17),
+        regularFontColor: UIColor = .black,
+        boldFont: UIFont = .boldSystemFont(ofSize: 17),
+        boldColor: UIColor = .black,
+        italicFont: UIFont = .italicSystemFont(ofSize: 17),
+        italicColor: UIColor = .black,
+        strikethroughFont: UIFont = .systemFont(ofSize: 17),
+        strikethroughFontColor: UIColor = .black,
+        strikethroughLineColor: UIColor = .black
+    ) {
+        self.regularFont = regularFont
+        self.regularFontColor = regularFontColor
+        self.boldFont = boldFont
+        self.boldColor = boldColor
+        self.italicFont = italicFont
+        self.italicColor = italicColor
+        self.strikethroughFont = strikethroughFont
+        self.strikethroughFontColor = strikethroughFontColor
+        self.strikethroughLineColor = strikethroughLineColor
+    }
 }
