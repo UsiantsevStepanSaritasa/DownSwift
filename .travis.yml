@@ -1,0 +1,11 @@
+language: Swift
+
+osx_image: xcode12.2
+env:
+  matrix:
+    - TEST_SDK=iphonesimulator12.1 OS=10.3 NAME='iPhone XR'
+    - TEST_SDK=iphonesimulator12.1 OS=14.0 NAME='iPhone 7'
+
+script:
+  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project DownSwift.xcodeproj -scheme DownSwift -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
+
