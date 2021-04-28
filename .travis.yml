@@ -7,5 +7,5 @@ env:
     - TEST_SDK=iphonesimulator14.2 OS=14.0 NAME='iPhone 7'
 
 script:
-  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project DownSwift.xcodeproj -scheme DownSwift -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
+  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project DownSwift.xcodeproj -scheme DownSwiftTests -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
 
