@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DownSwift {
+public final class DownSwift {
     public init() {}
 
     /**
@@ -16,42 +16,33 @@ final class DownSwift {
      - Parameters:
        - string: String with defined text style areas.
        - config: An entity for managing markdown's configuration.
+       - textStyle: An entity of text styles that described by characters.
      
      - Warning
      Text style areas have to be put straight one after another in string. Don't mix different text styles.
      */
-    public func parse(string: String, config: MarkdownConfig) -> NSAttributedString? {
+    public func parse(string: String, config: MarkdownConfig = MarkdownConfig(), textStyle: TextStyle = TextStyle()) -> NSAttributedString? {
         let attributedString = NSMutableAttributedString()
-        let textAreas = string.symbols
+        let textAreas = string.textAreas(textStyle: textStyle)
         
         for textArea in textAreas {
-            switch textArea.textStyle {
-            case .regular:
-                let currentAttributedString = NSMutableAttributedString(string: textArea.string)
+            let currentAttributedString = NSMutableAttributedString(string: textArea.string)
+            if  textArea.textStyle == textStyle.regular {
                 currentAttributedString.addConfigAttributes(with: config.regularFont, and: config.regularFontColor)
-                
-                attributedString.append(currentAttributedString)
-            case .bold:
-                let currentAttributedString = NSMutableAttributedString(string: textArea.string)
+            } else if textArea.textStyle == textStyle.bold {
                 currentAttributedString.addConfigAttributes(with: config.boldFont, and: config.boldColor)
-                
-                attributedString.append(currentAttributedString)
-            case .italic:
-                let currentAttributedString = NSMutableAttributedString(string: textArea.string)
+            } else if textArea.textStyle == textStyle.italic {
                 currentAttributedString.addConfigAttributes(with: config.italicFont, and: config.italicColor)
-                
-                attributedString.append(currentAttributedString)
-            case .strikethrough:
-                let currentAttributedString = NSMutableAttributedString(string: textArea.string)
+            } else if textArea.textStyle == textStyle.strikethrough {
                 currentAttributedString.addConfigAttributes(
                     with: config.strikethroughFont,
                     and: config.strikethroughFontColor,
                     and: NSUnderlineStyle.single,
                     and: config.strikethroughLineColor
                 )
-                
-                attributedString.append(currentAttributedString)
             }
+
+            attributedString.append(currentAttributedString)
         }
         
         return attributedString

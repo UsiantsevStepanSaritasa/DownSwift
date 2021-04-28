@@ -8,6 +8,13 @@
 import UIKit
 
 extension NSMutableAttributedString {
+    /// A function that adds attributes to attributed string depending on given parameters.
+    ///
+    /// - parameters:
+    ///     - configFont: A font that will be given to current attributed string.
+    ///     - configColor: A font color that will be given to current attributed string.
+    ///     - strikethroughStyle: The NSUnderlineStyle value that will be given to current attributed string.
+    ///     - strikethroughColor: A strikethrough line color that will be given to current attributed string.
     func addConfigAttributes(
         with configFont: UIFont,
         and configColor: UIColor,
