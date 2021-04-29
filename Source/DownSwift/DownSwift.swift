@@ -21,7 +21,7 @@ public final class DownSwift {
      - Warning
      Text style areas have to be put straight one after another in string. Don't mix different text styles.
      */
-    public func parse(string: String, config: MarkdownConfig = MarkdownConfig()) -> NSAttributedString? {
+    public func parse(_ string: String, config: DownSwiftConfig = DownSwiftConfig()) -> NSAttributedString? {
         let attributedString = NSMutableAttributedString()
         let textAreas = string.textAreas
         
