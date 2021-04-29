@@ -51,7 +51,7 @@
 
 /* Begin PBXFileReference section */
 		"DownSwift::DownSwift::Product" /* DownSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DownSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"DownSwift::DownSwiftTests::Product" /* DownSwiftTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = DownSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"DownSwift::DownSwiftTests::Product" /* DownSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = DownSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* DownSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownSwift.swift; sourceTree = "<group>"; };
 		OBJ_12 /* NSMutableAttributedString+Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Attributes.swift"; sourceTree = "<group>"; };
 		OBJ_13 /* String+Tokenization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Tokenization.swift"; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -143,7 +143,6 @@
 				OBJ_26 /* README.md */,
 				OBJ_27 /* DownSwift.podspec */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -224,6 +223,11 @@
 			attributes = {
 				LastSwiftMigration = 9999;
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					"DownSwift::DownSwiftTests" = {
+						DevelopmentTeam = 7T4W5F7NT8;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "DownSwift" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -231,8 +235,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_21 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -438,7 +443,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7T4W5F7NT8;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -464,7 +471,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7T4W5F7NT8;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
