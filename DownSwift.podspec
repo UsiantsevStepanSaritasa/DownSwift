@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "DownSwift"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.2"
   spec.summary      = "Simple markdown library written in Swift"
 
   # This description is used to generate tags and improve search results.
@@ -92,7 +92,7 @@ This library helps to convert given string into attributed string and configures
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Source/DownSwift/**/*.{h,swift}"
+  spec.source_files  = "Sources/DownSwift/**/*.{h,swift}"
   # spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
