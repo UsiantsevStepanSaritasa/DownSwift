@@ -21,21 +21,21 @@ public final class DownSwift {
      - Warning
      Text style areas have to be put straight one after another in string. Don't mix different text styles.
      */
-    public func parse(string: String, config: MarkdownConfig = MarkdownConfig(), textStyle: TextStyle = TextStyle()) -> NSAttributedString? {
+    public func parse(string: String, config: MarkdownConfig = MarkdownConfig()) -> NSAttributedString? {
         let attributedString = NSMutableAttributedString()
-        let textAreas = string.textAreas(textStyle: textStyle)
+        let textAreas = string.textAreas
         
         for textArea in textAreas {
             let currentAttributedString = NSMutableAttributedString(string: textArea.string)
             
             switch textArea.textStyle {
-            case textStyle.regular:
+            case .regular:
                 currentAttributedString.addConfigAttributes(with: config.regularFont, and: config.regularFontColor)
-            case textStyle.bold:
+            case .bold:
                 currentAttributedString.addConfigAttributes(with: config.boldFont, and: config.boldColor)
-            case textStyle.italic:
+            case .italic:
                 currentAttributedString.addConfigAttributes(with: config.italicFont, and: config.italicColor)
-            case textStyle.strikethrough:
+            case .strikethrough:
                 currentAttributedString.addConfigAttributes(
                     with: config.strikethroughFont,
                     and: config.strikethroughFontColor,

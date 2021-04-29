@@ -8,29 +8,19 @@
 import Foundation
 
 /**
- An entity of text styles that described by characters.
- 
- # Styles
-    - **regular**: A property for regular text style. Default value - "**`**" symbol;
-    - **bold**: A property for bold text style. Default value - "*" symbol;
-    - **italic**: A property for italic text style. Default value - "**~**" symbol;
-    - **strikethrough**: A property for strikethrough text style. Default value - "**|**" symbol.
-*/
-public struct TextStyle: Equatable {
-    var regular: Character
-    var bold: Character
-    var italic: Character
-    var strikethrough: Character
-    
-    public init(
-        regular: Character = "`",
-        bold: Character = "*",
-        italic: Character = "~",
-        strikethrough: Character = "|"
-    ) {
-        self.regular = regular
-        self.bold = bold
-        self.italic = italic
-        self.strikethrough = strikethrough
-    }
+  An enum for managing text style.
+  
+  # Cases
+     - **regular**: A case for regular text style. Define regular area using "**`**" symbol;
+     - **bold**: A case for bold text style. Define bold area using "*" symbol;
+     - **italic**: A case for italic text style. Define italic area using "**~**" symbol;
+     - **strikethrough**: A case for strikethrough text style. Define strikethrough area using "**|**" symbol.
+     - **symbol**: A case for special symbols in text. Define symbol using "**\\**" symbol.
+ */
+enum TextStyle: Character {
+    case regular = "`"
+    case bold = "*"
+    case italic = "~"
+    case strikethrough = "|"
+    case symbol = "\\"
 }
