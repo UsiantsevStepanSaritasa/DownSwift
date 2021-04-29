@@ -14,7 +14,7 @@
 		3139AC8F26392F30008F9B5F /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3139AC8E26392F30008F9B5F /* Text.swift */; };
 		3139AC9326392F96008F9B5F /* String+Tokenization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3139AC9226392F96008F9B5F /* String+Tokenization.swift */; };
 		3139AC9926392FD7008F9B5F /* NSMutableAttributedString+Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3139AC9826392FD7008F9B5F /* NSMutableAttributedString+Attributes.swift */; };
-		3139AC9D2639300D008F9B5F /* MarkdownConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3139AC9C2639300D008F9B5F /* MarkdownConfig.swift */; };
+		3139AC9D2639300D008F9B5F /* DownSwiftConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3139AC9C2639300D008F9B5F /* DownSwiftConfig.swift */; };
 		3139ACA126393057008F9B5F /* DownSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3139ACA026393057008F9B5F /* DownSwift.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +39,7 @@
 		3139AC8E26392F30008F9B5F /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		3139AC9226392F96008F9B5F /* String+Tokenization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Tokenization.swift"; sourceTree = "<group>"; };
 		3139AC9826392FD7008F9B5F /* NSMutableAttributedString+Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Attributes.swift"; sourceTree = "<group>"; };
-		3139AC9C2639300D008F9B5F /* MarkdownConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownConfig.swift; sourceTree = "<group>"; };
+		3139AC9C2639300D008F9B5F /* DownSwiftConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownSwiftConfig.swift; sourceTree = "<group>"; };
 		3139ACA026393057008F9B5F /* DownSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownSwift.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,7 +130,7 @@
 			children = (
 				3139AC8A26392CA1008F9B5F /* TextStyle.swift */,
 				3139AC8E26392F30008F9B5F /* Text.swift */,
-				3139AC9C2639300D008F9B5F /* MarkdownConfig.swift */,
+				3139AC9C2639300D008F9B5F /* DownSwiftConfig.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -253,7 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3139AC9D2639300D008F9B5F /* MarkdownConfig.swift in Sources */,
+				3139AC9D2639300D008F9B5F /* DownSwiftConfig.swift in Sources */,
 				3139AC9326392F96008F9B5F /* String+Tokenization.swift in Sources */,
 				3139AC9926392FD7008F9B5F /* NSMutableAttributedString+Attributes.swift in Sources */,
 				3139ACA126393057008F9B5F /* DownSwift.swift in Sources */,

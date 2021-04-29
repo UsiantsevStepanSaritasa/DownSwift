@@ -23,7 +23,7 @@ import UIKit
  - **strikethroughFontColor**: Color for strikethrough style text (default value: `UIColor.black`);
  - **strikethroughLineColor**: Color for strikethrough line (default value: `UIColor.black`).
 */
-public struct MarkdownConfig {
+public struct DownSwiftConfig {
     var regularFont: UIFont
     var regularFontColor: UIColor
     var boldFont: UIFont
