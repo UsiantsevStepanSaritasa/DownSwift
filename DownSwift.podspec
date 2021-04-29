@@ -65,7 +65,7 @@ This library helps to convert given string into attributed string and configures
 
   # spec.platform     = :ios
   # spec.platform     = :ios, "5.0"
-  spec.ios.deployment_target = "11.0"
+  spec.ios.deployment_target = "12.1"
   spec.swift_version = "5.0"
 
   #  When using multiple platforms
