@@ -8,9 +8,8 @@
 import Foundation
 
 extension String {
-    /// A function that's tokenizing given string.
-    /// - parameter textStyle: An entity of text styles that described by characters.
-    func textAreas(textStyle: TextStyle) -> [Text] {
+    /// A computed property that's tokenizing given string.
+    var textAreas: [Text] {
         /**
          `Text` type optional property that stores current `Text`'s entity state.
          
@@ -37,6 +36,9 @@ extension String {
         /// A boolean property that indicates if character is tokenizing at current moment.
         var isTokenizing = false
         
+        /// A boolean indicating if current character will be as a symbol within current text area
+        var isSkipped = false
+        
         /**
             Defines text area depending on character and then either add it to the existing text area or create new one.
          
@@ -45,19 +47,40 @@ extension String {
         func tokenize(_ character: Character) {
             if var symbol = partialText {
                 guard
-                    character != textStyle.bold,
-                    character != textStyle.italic,
-                    character != textStyle.strikethrough
+                    character != TextStyle.bold.rawValue,
+                    character != TextStyle.italic.rawValue,
+                    character != TextStyle.strikethrough.rawValue,
+                    character != TextStyle.symbol.rawValue
                 else {
                     // If we meet markdown symbol second time then we stop tokenizing, clear the partialSymbol and quit iteration
                     if
-                        character == textStyle.bold ||
-                        character == textStyle.italic ||
-                        character == textStyle.strikethrough
+                        character == TextStyle.bold.rawValue ||
+                        character == TextStyle.italic.rawValue ||
+                        character == TextStyle.strikethrough.rawValue
                     {
+                        if isSkipped {
+                            symbol.string.append(character)
+                            partialText = symbol
+                            isSkipped = false
+                            
+                            return
+                        }
+                            
                         textParts.append(symbol)
                         isTokenizing = false
                     } else if isTokenizing {
+                        if character == TextStyle.symbol.rawValue, !isSkipped {
+                            isSkipped = true
+                            
+                            return
+                        } else if character == TextStyle.symbol.rawValue, isSkipped {
+                            symbol.string.append(character)
+                            partialText = symbol
+                            isSkipped = false
+                            
+                            return
+                        }
+
                         symbol.string.append(character)
                         return
                     }
@@ -67,27 +90,39 @@ extension String {
                 }
                 
                 symbol.string.append(character)
+                isSkipped = false
                 partialText = symbol
             } else if var regularSymbol = regularPartialText {
                 if
-                    character != textStyle.bold,
-                    character != textStyle.italic,
-                    character != textStyle.strikethrough
+                    character != TextStyle.bold.rawValue,
+                    character != TextStyle.italic.rawValue,
+                    character != TextStyle.strikethrough.rawValue
                 {
+                    if character == TextStyle.symbol.rawValue, !isSkipped {
+                        isSkipped = true
+                        
+                        return
+                    }
+
                     regularSymbol.string.append(character)
                     regularPartialText = regularSymbol
+                    isSkipped = false
+                } else if isSkipped {
+                    regularSymbol.string.append(character)
+                    regularPartialText = regularSymbol
+                    isSkipped = false
                 } else {
                     regularPartialText = nil
                     textParts.append(regularSymbol)
                     switch character {
-                    case textStyle.bold:
-                        partialText = Text(textStyle: textStyle.bold, string: "")
+                    case TextStyle.bold.rawValue:
+                        partialText = Text(textStyle: TextStyle.bold, string: "")
                         isTokenizing = true
-                    case textStyle.italic:
-                        partialText = Text(textStyle: textStyle.italic, string: "")
+                    case TextStyle.italic.rawValue:
+                        partialText = Text(textStyle: TextStyle.italic, string: "")
                         isTokenizing = true
-                    case textStyle.strikethrough:
-                        partialText = Text(textStyle: textStyle.strikethrough, string: "")
+                    case TextStyle.strikethrough.rawValue:
+                        partialText = Text(textStyle: TextStyle.strikethrough, string: "")
                         isTokenizing = true
                     default:
                         break
@@ -99,17 +134,17 @@ extension String {
                  We're creating an empty Text entity, where we'll store our markdown zone.
                  */
                 switch character {
-                case textStyle.bold:
-                    partialText = Text(textStyle: textStyle.bold, string: "")
+                case TextStyle.bold.rawValue:
+                    partialText = Text(textStyle: TextStyle.bold, string: "")
                     isTokenizing = true
-                case textStyle.italic:
-                    partialText = Text(textStyle: textStyle.italic, string: "")
+                case TextStyle.italic.rawValue:
+                    partialText = Text(textStyle: TextStyle.italic, string: "")
                     isTokenizing = true
-                case textStyle.strikethrough:
-                    partialText = Text(textStyle: textStyle.strikethrough, string: "")
+                case TextStyle.strikethrough.rawValue:
+                    partialText = Text(textStyle: TextStyle.strikethrough, string: "")
                     isTokenizing = true
                 default:
-                    regularPartialText = Text(textStyle: textStyle.regular, string: "\(character)")
+                    regularPartialText = Text(textStyle: TextStyle.regular, string: "\(character)")
                 }
             }
         }

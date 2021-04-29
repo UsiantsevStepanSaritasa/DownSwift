@@ -10,10 +10,11 @@ import Foundation
 /**
  An entity that describes text area's content.
  # Fields
-    - **textStyle**: Character that defines text area style.
+    - **textStyle**: `Text style` case that defines text area style.
     - **string**:  This field contains text area's content.
  */
 struct Text: Equatable {
-    let textStyle: Character
+    let textStyle: TextStyle
     var string: String
 }
+
