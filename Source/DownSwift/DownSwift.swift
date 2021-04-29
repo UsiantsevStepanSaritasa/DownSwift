@@ -27,19 +27,23 @@ public final class DownSwift {
         
         for textArea in textAreas {
             let currentAttributedString = NSMutableAttributedString(string: textArea.string)
-            if  textArea.textStyle == textStyle.regular {
+            
+            switch textArea.textStyle {
+            case textStyle.regular:
                 currentAttributedString.addConfigAttributes(with: config.regularFont, and: config.regularFontColor)
-            } else if textArea.textStyle == textStyle.bold {
+            case textStyle.bold:
                 currentAttributedString.addConfigAttributes(with: config.boldFont, and: config.boldColor)
-            } else if textArea.textStyle == textStyle.italic {
+            case textStyle.italic:
                 currentAttributedString.addConfigAttributes(with: config.italicFont, and: config.italicColor)
-            } else if textArea.textStyle == textStyle.strikethrough {
+            case textStyle.strikethrough:
                 currentAttributedString.addConfigAttributes(
                     with: config.strikethroughFont,
                     and: config.strikethroughFontColor,
                     and: NSUnderlineStyle.single,
                     and: config.strikethroughLineColor
                 )
+            default:
+                break
             }
 
             attributedString.append(currentAttributedString)
