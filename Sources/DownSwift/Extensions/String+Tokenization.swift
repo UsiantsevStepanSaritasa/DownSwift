@@ -58,6 +58,9 @@ extension String {
                 partialText = symbol
                 isSkipped = false
             } else {
+                guard !isLetter(character) else { return partialText = newTextArea(character) }
+                
+                areaCounter += 1
                 partialText = newTextArea(character)
             }
         }
