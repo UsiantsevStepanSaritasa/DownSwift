@@ -29,46 +29,18 @@ extension String {
         var areaCounter = 0
         
         /**
-            Defines text area depending on character and then either add it to the existing text area or create new one.
+         Defines text area depending on character and then either add it to the existing text area or create new one.
          
-            - parameter character: The character that we need to tokenize.
+         - parameter character: The character that we need to tokenize.
          */
         func tokenize(_ character: Character) {
             if var symbol = partialText {
-                guard
-                    character != TextStyle.bold.rawValue,
-                    character != TextStyle.italic.rawValue,
-                    character != TextStyle.strikethrough.rawValue,
-                    character != TextStyle.symbol.rawValue
-                else {
-                    // If we meet markdown symbol second time then we stop tokenizing, clear the partialSymbol and quit iteration
-                    if
-                        character == TextStyle.bold.rawValue ||
-                        character == TextStyle.italic.rawValue ||
-                        character == TextStyle.strikethrough.rawValue
-                    {
-                        if isSkipped {
-                            symbol.string.append(character)
-                            partialText = symbol
-                            isSkipped = false
-                            
-                            return
-                        }
-                            
+                guard isLetter(character) || isSkipped else {
+                    if character == TextStyle.symbol.rawValue, !isSkipped {
+                        return isSkipped = true
+                    } else {
                         areaCounter += 1
                         textParts.append(symbol)
-                    } else {
-                        if character == TextStyle.symbol.rawValue, !isSkipped {
-                            isSkipped = true
-                            
-                            return
-                        } else if character == TextStyle.symbol.rawValue, isSkipped {
-                            symbol.string.append(character)
-                            partialText = symbol
-                            isSkipped = false
-                            
-                            return
-                        }
                     }
                     
                     partialText = nil
@@ -81,7 +53,7 @@ extension String {
                     
                     return
                 }
-
+                
                 symbol.string.append(character)
                 partialText = symbol
                 isSkipped = false
@@ -100,6 +72,9 @@ extension String {
     }
 }
 
+/// A function creates new Text entity depending on character.
+///
+/// - parameter character: The character that we need to tokenize.
 private func newTextArea(_ character: Character) -> Text {
     /* If character is not tokenizing at the moment and we meet special symbols
      then we define what specific zone of markdown we should parse.
@@ -114,5 +89,21 @@ private func newTextArea(_ character: Character) -> Text {
         return Text(textStyle: TextStyle.strikethrough, string: "")
     default:
         return Text(textStyle: TextStyle.regular, string: "\(character)")
+    }
+}
+
+/// A function checks if character is letter or text style area symbol.
+///
+/// - parameter character: The character that we need to check.
+private func isLetter(_ character: Character) -> Bool {
+    if
+        character != TextStyle.bold.rawValue,
+        character != TextStyle.italic.rawValue,
+        character != TextStyle.strikethrough.rawValue,
+        character != TextStyle.symbol.rawValue
+    {
+        return true
+    } else {
+        return false
     }
 }
