@@ -163,4 +163,36 @@ class DownSwiftParseTests: XCTestCase {
 
         XCTAssertEqual(string.textAreas, rightExpression, "Symbol skip FAILED!")
     }
+    
+    func testAllStylesWithMultipleAreasWithCustomStart() {
+        let string = "*Hello* and *welcome* to the ~test area!~ We are happy that you are |here|!!! We *want* introduce you a ~big achievement~ but that's not *all*! We're also |a bit upset| that our *test* is ~coming~ to the ~end~ :("
+        let rightExpression = [
+            Text(textStyle: .bold, string: "Hello"),
+            Text(textStyle: .regular, string: " and "),
+            Text(textStyle: .bold, string: "welcome"),
+            Text(textStyle: .regular, string: " to the "),
+            Text(textStyle: .italic, string: "test area!"),
+            Text(textStyle: .regular, string: " We are happy that you are "),
+            Text(textStyle: .strikethrough, string: "here"),
+            Text(textStyle: .regular, string: "!!! We "),
+
+            Text(textStyle: .bold, string: "want"),
+            Text(textStyle: .regular, string: " introduce you a "),
+            Text(textStyle: .italic, string: "big achievement"),
+            Text(textStyle: .regular, string: " but that's not "),
+            Text(textStyle: .bold, string: "all"),
+
+            Text(textStyle: .regular, string: "! We're also "),
+            Text(textStyle: .strikethrough, string: "a bit upset"),
+            Text(textStyle: .regular, string: " that our "),
+            Text(textStyle: .bold, string: "test"),
+            Text(textStyle: .regular, string: " is "),
+            Text(textStyle: .italic, string: "coming"),
+            Text(textStyle: .regular, string: " to the "),
+            Text(textStyle: .italic, string: "end"),
+            Text(textStyle: .regular, string: " :("),
+        ]
+
+        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
+    }
 }
