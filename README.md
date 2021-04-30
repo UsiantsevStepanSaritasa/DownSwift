@@ -49,17 +49,19 @@ Then create text style areas in needed string using special symbols:
 
 ### DownSwiftConfig default values:
 ```swift
-  public init(
-        regularFont: UIFont = .systemFont(ofSize: 17),
-        regularFontColor: UIColor = .black,
-        boldFont: UIFont = .boldSystemFont(ofSize: 17),
-        boldColor: UIColor = .black,
-        italicFont: UIFont = .italicSystemFont(ofSize: 17),
-        italicColor: UIColor = .black,
-        strikethroughFont: UIFont = .systemFont(ofSize: 17),
-        strikethroughFontColor: UIColor = .black,
-        strikethroughLineColor: UIColor = .black
-    )
+public struct DownSwiftConfig {
+    public var regularFont: UIFont = .systemFont(ofSize: 17)
+    public var regularFontColor: UIColor = .black
+    public var boldFont: UIFont = .boldSystemFont(ofSize: 17)
+    public var boldColor: UIColor = .black
+    public var italicFont: UIFont = .italicSystemFont(ofSize: 17)
+    public var italicColor: UIColor = .black
+    public var strikethroughFont: UIFont = .systemFont(ofSize: 17)
+    public var strikethroughFontColor: UIColor = .black
+    public var strikethroughLineColor: UIColor = .black
+    
+    ...
+}
 ```
 
 ### Example (without custom text styles):
