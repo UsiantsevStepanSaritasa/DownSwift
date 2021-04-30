@@ -24,35 +24,15 @@ import UIKit
  - **strikethroughLineColor**: Color for strikethrough line (default value: `UIColor.black`).
 */
 public struct DownSwiftConfig {
-    var regularFont: UIFont
-    var regularFontColor: UIColor
-    var boldFont: UIFont
-    var boldColor: UIColor
-    var italicFont: UIFont
-    var italicColor: UIColor
-    var strikethroughFont: UIFont
-    var strikethroughFontColor: UIColor
-    var strikethroughLineColor: UIColor
+    public var regularFont: UIFont = .systemFont(ofSize: 17)
+    public var regularFontColor: UIColor = .black
+    public var boldFont: UIFont = .boldSystemFont(ofSize: 17)
+    public var boldColor: UIColor = .black
+    public var italicFont: UIFont = .italicSystemFont(ofSize: 17)
+    public var italicColor: UIColor = .black
+    public var strikethroughFont: UIFont = .systemFont(ofSize: 17)
+    public var strikethroughFontColor: UIColor = .black
+    public var strikethroughLineColor: UIColor = .black
     
-    public init(
-        regularFont: UIFont = .systemFont(ofSize: 17),
-        regularFontColor: UIColor = .black,
-        boldFont: UIFont = .boldSystemFont(ofSize: 17),
-        boldColor: UIColor = .black,
-        italicFont: UIFont = .italicSystemFont(ofSize: 17),
-        italicColor: UIColor = .black,
-        strikethroughFont: UIFont = .systemFont(ofSize: 17),
-        strikethroughFontColor: UIColor = .black,
-        strikethroughLineColor: UIColor = .black
-    ) {
-        self.regularFont = regularFont
-        self.regularFontColor = regularFontColor
-        self.boldFont = boldFont
-        self.boldColor = boldColor
-        self.italicFont = italicFont
-        self.italicColor = italicColor
-        self.strikethroughFont = strikethroughFont
-        self.strikethroughFontColor = strikethroughFontColor
-        self.strikethroughLineColor = strikethroughLineColor
-    }
+    public init () {}
 }
