@@ -9,7 +9,7 @@ import UIKit
 
 public final class DownSwift {
     public init() {}
-
+    
     /**
      Parses given string that has defined style areas with given config and returns attributed string.
      
