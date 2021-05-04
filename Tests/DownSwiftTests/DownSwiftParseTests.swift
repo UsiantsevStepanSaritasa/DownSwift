@@ -195,4 +195,34 @@ class DownSwiftParseTests: XCTestCase {
 
         XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
     }
+    
+    func testSymbolSkipAtTheStartOfString() {
+        let string = "\\*Hello and *welcome\\** to the ~test \\~area!~ We are \\*happy that you are |here|!!!"
+        let rightExpression = [
+            Text(textStyle: .regular, string: "*Hello and "),
+            Text(textStyle: .bold, string: "welcome*"),
+            Text(textStyle: .regular, string: " to the "),
+            Text(textStyle: .italic, string: "test ~area!"),
+            Text(textStyle: .regular, string: " We are *happy that you are "),
+            Text(textStyle: .strikethrough, string: "here"),
+            Text(textStyle: .regular, string: "!!!")
+        ]
+
+        XCTAssertEqual(string.textAreas, rightExpression, "Symbol skip at the start of sentence FAILED!")
+    }
+    
+    func testSymbolAfterTextArea() {
+        let string = "\\*Hello and *welcome*\\*\\* to the ~test \\~area!~\\* We are \\*happy that you are |here|\\*!!!"
+        let rightExpression = [
+            Text(textStyle: .regular, string: "*Hello and "),
+            Text(textStyle: .bold, string: "welcome"),
+            Text(textStyle: .regular, string: "** to the "),
+            Text(textStyle: .italic, string: "test ~area!"),
+            Text(textStyle: .regular, string: "* We are *happy that you are "),
+            Text(textStyle: .strikethrough, string: "here"),
+            Text(textStyle: .regular, string: "*!!!")
+        ]
+
+        XCTAssertEqual(string.textAreas, rightExpression, "Symbol skip after text area FAILED!")
+    }
 }
