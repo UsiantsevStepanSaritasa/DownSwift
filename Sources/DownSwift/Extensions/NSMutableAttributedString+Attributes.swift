@@ -16,18 +16,17 @@ extension NSMutableAttributedString {
     ///     - strikethroughStyle: The NSUnderlineStyle value that will be given to current attributed string.
     ///     - strikethroughColor: A strikethrough line color that will be given to current attributed string.
     func addConfigAttributes(
-        with configFont: UIFont,
-        and configColor: UIColor,
-        and strikethroughStyle: NSUnderlineStyle? = nil,
-        and strikethroughColor: UIColor? = nil
+        configFont: UIFont,
+        configColor: UIColor,
+        strikethroughStyle: (NSUnderlineStyle, UIColor)? = nil
     ) {
-        if let strikethroughStyle = strikethroughStyle, let strikethroughColor = strikethroughColor {
+        if let strikethroughStyle = strikethroughStyle {
             self.addAttributes(
                 [
                     NSAttributedString.Key.font: configFont,
                     NSAttributedString.Key.foregroundColor: configColor,
-                    NSAttributedString.Key.strikethroughStyle: strikethroughStyle.rawValue,
-                    NSAttributedString.Key.strikethroughColor: strikethroughColor
+                    NSAttributedString.Key.strikethroughStyle: strikethroughStyle.0,
+                    NSAttributedString.Key.strikethroughColor: strikethroughStyle.1
                 ],
                 range: NSMakeRange(0, self.length))
         } else {

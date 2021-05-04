@@ -8,10 +8,10 @@
 import Foundation
 
 extension String {
-    /// A computed property that's tokenizing given string.
-    var textAreas: [Text] {
+    /// A function that is tokenizing given string.
+    func textAreas() -> [Text] {
         /**
-         `Text` type optional property that stores current `Text`'s entity state.
+         A `Text` type optional property that stores current `Text`'s entity state.
          */
         var partialText: Text?
         

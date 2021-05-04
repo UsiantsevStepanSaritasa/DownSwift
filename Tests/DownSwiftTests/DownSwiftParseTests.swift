@@ -23,7 +23,7 @@ class DownSwiftParseTests: XCTestCase {
         let string = "Hello and welcome to the test area!"
         let rightExpression = [Text(textStyle: .regular, string: "Hello and welcome to the test area!")]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing area with only regular style FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing area with only regular style FAILED!")
     }
 
     func testOneBoldArea() {
@@ -34,7 +34,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: " to the test area!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing one bold area FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing one bold area FAILED!")
     }
 
     func testMultipleBoldAreas() {
@@ -49,7 +49,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: "!!!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing multiple bold areas FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing multiple bold areas FAILED!")
     }
 
     func testOneItalicArea() {
@@ -60,7 +60,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: " to the test area!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing one italic area FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing one italic area FAILED!")
     }
 
     func testMultipleItalicAreas() {
@@ -74,7 +74,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .italic, string: "here!!!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing multiple italic areas FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing multiple italic areas FAILED!")
     }
 
     func testOneStrikethroughArea() {
@@ -85,7 +85,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: " to the test area!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing one strikethrough area FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing one strikethrough area FAILED!")
     }
 
     func testMultipleStrikethroughAreas() {
@@ -100,7 +100,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: "!!!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing multiple strikethrough areas FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing multiple strikethrough areas FAILED!")
     }
 
     func testAllStylesWithOneAreaForEach() {
@@ -115,7 +115,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: "!!!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing all styles with one area for each FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing all styles with one area for each FAILED!")
     }
 
     func testAllStylesWithMultipleAreas() {
@@ -146,7 +146,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: " :("),
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
     }
     
     func testSymbolSkip() {
@@ -161,7 +161,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: "!!!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Symbol skip FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Symbol skip FAILED!")
     }
     
     func testAllStylesWithMultipleAreasWithCustomStart() {
@@ -193,7 +193,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: " :("),
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
     }
     
     func testSymbolSkipAtTheStartOfString() {
@@ -208,7 +208,7 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: "!!!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Symbol skip at the start of sentence FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Symbol skip at the start of sentence FAILED!")
     }
     
     func testSymbolAfterTextArea() {
@@ -223,6 +223,17 @@ class DownSwiftParseTests: XCTestCase {
             Text(textStyle: .regular, string: "*!!!")
         ]
 
-        XCTAssertEqual(string.textAreas, rightExpression, "Symbol skip after text area FAILED!")
+        XCTAssertEqual(string.textAreas(), rightExpression, "Symbol skip after text area FAILED!")
+    }
+    
+    func testPerfomanceMeasure() {
+        measure {
+            let string = "*Hello* and \\**welcome* to the ~test \\~area!~ We are happy that you are |here|!!! We *want* introduce you a ~big achievement~ but that's not *all*! We're also |a bit upset| that our *test* is ~coming~ to the ~end~ :("
+            let array = Array(repeating: string, count: 100)
+            
+            for str in array {
+                _ = str.textAreas()
+            }
+        }
     }
 }

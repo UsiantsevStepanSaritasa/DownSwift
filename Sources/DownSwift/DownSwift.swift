@@ -21,26 +21,24 @@ public final class DownSwift {
      - Warning
      Text style areas have to be put straight one after another in string. Don't mix different text styles.
      */
-    public func parse(_ string: String, config: DownSwiftConfig = DownSwiftConfig()) -> NSAttributedString? {
+    public func parse(_ string: String, config: DownSwiftConfig = DownSwiftConfig()) -> NSAttributedString {
         let attributedString = NSMutableAttributedString()
-        let textAreas = string.textAreas
         
-        for textArea in textAreas {
+        for textArea in string.textAreas() {
             let currentAttributedString = NSMutableAttributedString(string: textArea.string)
             
             switch textArea.textStyle {
             case .regular:
-                currentAttributedString.addConfigAttributes(with: config.regularFont, and: config.regularFontColor)
+                currentAttributedString.addConfigAttributes(configFont: config.regularFont, configColor: config.regularFontColor)
             case .bold:
-                currentAttributedString.addConfigAttributes(with: config.boldFont, and: config.boldColor)
+                currentAttributedString.addConfigAttributes(configFont: config.boldFont, configColor: config.boldColor)
             case .italic:
-                currentAttributedString.addConfigAttributes(with: config.italicFont, and: config.italicColor)
+                currentAttributedString.addConfigAttributes(configFont: config.italicFont, configColor: config.italicColor)
             case .strikethrough:
                 currentAttributedString.addConfigAttributes(
-                    with: config.strikethroughFont,
-                    and: config.strikethroughFontColor,
-                    and: NSUnderlineStyle.single,
-                    and: config.strikethroughLineColor
+                    configFont: config.strikethroughFont,
+                    configColor: config.strikethroughFontColor,
+                    strikethroughStyle: (NSUnderlineStyle.single, config.strikethroughLineColor)
                 )
             default:
                 break
