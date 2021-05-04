@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "DownSwift"
-  spec.version      = "0.0.5"
+  spec.version      = "0.0.6"
   spec.summary      = "Simple text editing library written in Swift"
 
   # This description is used to generate tags and improve search results.
