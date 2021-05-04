@@ -60,8 +60,13 @@ extension String {
             } else {
                 guard !isLetter(character) else { return partialText = newTextArea(character) }
                 
-                areaCounter += 1
-                partialText = newTextArea(character)
+                if character != TextStyle.symbol.rawValue {
+                    areaCounter += 1
+                    partialText = newTextArea(character)
+                } else {
+                    isSkipped = true
+                    partialText = newTextArea(nil)
+                }
             }
         }
         
@@ -78,7 +83,7 @@ extension String {
 /// A function creates new Text entity depending on character.
 ///
 /// - parameter character: The character that we need to tokenize.
-private func newTextArea(_ character: Character) -> Text {
+private func newTextArea(_ character: Character?) -> Text {
     /* If character is not tokenizing at the moment and we meet special symbols
      then we define what specific zone of markdown we should parse.
      We're creating an empty Text entity, where we'll store our markdown zone.
@@ -91,6 +96,9 @@ private func newTextArea(_ character: Character) -> Text {
     case TextStyle.strikethrough.rawValue:
         return Text(textStyle: TextStyle.strikethrough, string: "")
     default:
+        guard let character = character else {
+            return Text(textStyle: TextStyle.regular, string: "")
+        }
         return Text(textStyle: TextStyle.regular, string: "\(character)")
     }
 }
