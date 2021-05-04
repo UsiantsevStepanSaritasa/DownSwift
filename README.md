@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/UsiantsevStepanSaritasa/DownSwift.svg?branch=main)](https://travis-ci.com/github/UsiantsevStepanSaritasa/DownSwift)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/UsiantsevStepanSaritasa/DownSwift/blob/main/LICENSE)
-[![codebeat badge](https://codebeat.co/badges/f231b5d6-b11c-433c-bc1a-08c564fde1bf)](https://codebeat.co/projects/github-com-usiantsevstepansaritasa-downswift-feature-9-code-refactoring)
+[![codebeat badge](https://codebeat.co/badges/ec58a535-56ab-4a53-b298-dde605e69a36)](https://codebeat.co/projects/github-com-usiantsevstepansaritasa-downswift-main)
 
 Simple and lightweight Swift library that helps to define text style areas in given string with your own configuration, apply those styles and convert string into attributed string.
 
