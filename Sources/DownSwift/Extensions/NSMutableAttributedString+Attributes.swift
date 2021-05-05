@@ -25,7 +25,7 @@ extension NSMutableAttributedString {
                 [
                     NSAttributedString.Key.font: configFont,
                     NSAttributedString.Key.foregroundColor: configColor,
-                    NSAttributedString.Key.strikethroughStyle: strikethroughStyle.0,
+                    NSAttributedString.Key.strikethroughStyle: strikethroughStyle.0.rawValue,
                     NSAttributedString.Key.strikethroughColor: strikethroughStyle.1
                 ],
                 range: NSMakeRange(0, self.length))
