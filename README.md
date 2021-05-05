@@ -20,6 +20,21 @@ Replace `YOUR_TARGET_NAME` and then, in the Podfile directory, type:
 ```
 $ pod install
 ```
+**Be careful with pod's version!** Sometimes cocoapods can miss the latest version within default installation so there are solutions:
+1. Run ```pod update``` in terminal within Podfile directory;
+
+**OR**
+
+2. Stricly define pod's version in Podfile:
+```ruby
+# Podfile
+use_frameworks!
+
+target 'YOUR_TARGET_NAME' do
+# Where '0.0.x' is a pod's version
+    pod 'DownSwift', '~> 0.0.x'
+end
+```
 
 ### Using [Swift Package Manager](https://github.com/apple/swift-package-manager):
 To add *DownSwift* to your project, select `File → Swift Packages → Add Package Dependency` and enter the GitHub URL for *DownSwift*. 
