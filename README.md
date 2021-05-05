@@ -21,11 +21,11 @@ Replace `YOUR_TARGET_NAME` and then, in the Podfile directory, type:
 $ pod install
 ```
 **Be careful with pod's version!** Sometimes cocoapods can miss the latest version within default installation so there are solutions:
-1. Run ```pod update``` in terminal within Podfile directory;
+1. Run ```pod update``` in terminal within Podfile directory after pod's installation;
 
 **OR**
 
-2. Stricly define pod's version in Podfile:
+2. Strictly define pod's version in Podfile:
 ```ruby
 # Podfile
 use_frameworks!
