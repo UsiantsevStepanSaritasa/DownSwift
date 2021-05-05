@@ -20,7 +20,7 @@ Replace `YOUR_TARGET_NAME` and then, in the Podfile directory, type:
 ```
 $ pod install
 ```
-**Be careful with pod's version!** Sometimes cocoapods can miss the latest version within default installation so there are solutions:
+**Be careful with pod's version!** Sometimes CocoaPods can miss the latest version within default installation so there are solutions:
 1. Run ```pod update``` in terminal within Podfile directory after pod's installation;
 
 **OR**
