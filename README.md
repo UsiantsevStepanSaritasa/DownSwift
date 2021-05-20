@@ -54,28 +54,35 @@ class YourBeautifulClass {
 ```
 Then create tags that will define text style areas in string:
 ```swift
+    // EXAMPLE
     // For custom fonts I've used "Oswald-Regular" and "Oswald-Bold" fonts.
     ...
+    // `*` tag will define bold style area
     downSwift.register(tag: "*", attributes: [
         NSAttributedString.Key.font: customBoldFont,
         NSAttributedString.Key.foregroundColor: UIColor.systemBlue
     ])
+    // `~` tag will define italic style area
     downSwift.register(tag: "~", attributes: [
         NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 17),
         NSAttributedString.Key.foregroundColor: UIColor.systemRed
     ])
+    // `|` tag will define strikethrough style area
     downSwift.register(tag: "|", attributes: [
         NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
         NSAttributedString.Key.strikethroughColor: UIColor.gray
     ])
+    // To customize regular text style use `nil` in `tag` parameter!
     downSwift.register(tag: nil, attributes: [NSAttributedString.Key.font: customRegularFont])
     ...
 ```
 
-If you want to skip any characters in your string then use `\\`.
+If you want to **skip** any characters in your string then use `\\`.
 
 After you created needed tags you can parse your string into attributed string with given style areas:
 ```swift
+    let string = "Hello and *welcome* to the ~example area!~ We are |sad| ~happy\\*~ that you are *here*!!!"
+    
     textLabel.attributedText = downSwift.parse(string)
 ```
 Output:
