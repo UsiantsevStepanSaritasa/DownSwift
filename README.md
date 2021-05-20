@@ -52,66 +52,31 @@ class YourBeautifulClass {
     ...
 }
 ```
-Then create text style areas in needed string using special symbols:
-
-`*` - for **bold** style
-
-`~` - for *italic* style
-
-`|` - for ~~strikethrough~~ style
-
-`\\` - for skipping special symbols that are mentioned above
-
-### DownSwiftConfig default values:
+Then create tags that will define text style areas in string:
 ```swift
-public struct DownSwiftConfig {
-    public var regularFont: UIFont = .systemFont(ofSize: 17)
-    public var regularFontColor: UIColor = .black
-    public var boldFont: UIFont = .boldSystemFont(ofSize: 17)
-    public var boldColor: UIColor = .black
-    public var italicFont: UIFont = .italicSystemFont(ofSize: 17)
-    public var italicColor: UIColor = .black
-    public var strikethroughFont: UIFont = .systemFont(ofSize: 17)
-    public var strikethroughFontColor: UIColor = .black
-    public var strikethroughLineColor: UIColor = .black
-    
+    // For custom fonts I've used "Oswald-Regular" and "Oswald-Bold" fonts.
     ...
-}
+    downSwift.register(tag: "*", attributes: [
+        NSAttributedString.Key.font: customBoldFont,
+        NSAttributedString.Key.foregroundColor: UIColor.systemBlue
+    ])
+    downSwift.register(tag: "~", attributes: [
+        NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 17),
+        NSAttributedString.Key.foregroundColor: UIColor.systemRed
+    ])
+    downSwift.register(tag: "|", attributes: [
+        NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
+        NSAttributedString.Key.strikethroughColor: UIColor.gray
+    ])
+    downSwift.register(tag: nil, attributes: [NSAttributedString.Key.font: customRegularFont])
+    ...
 ```
 
-### Example (without custom text styles):
+If you want to skip any characters in your string then use `\\`.
+
+After you created needed tags you can parse your string into attributed string with given style areas:
 ```swift
-  let string = "Hello and *welcome* to the ~example area!~ We are |sad| ~happy\\*~ that you are *here*!!!"
-  let attributedString = downSwift.parse(string)
-  
-  yourLabel.attributedText = attributedString
-```
-Output:
-
-> Hello and **welcome** to the *example area!* We are ~~sad~~ *happy\** that you are **here**!!!
-
-### Example (with custom text styles)
-DownSwift allows you to customize font and font color for each of the styles. Also you can customize strikethrough line color!
-
-You just need to create your own `DownSwiftConfig` entity.
-
-You can customize any of given styles but you can also *skip* some properties if needed, in that case skipped properties will take values by default.
-
-For example:
-```swift
-  let string = "Hello and *welcome* to the ~example area!~ We are |sad| ~happy\\*~ that you are *here*!!!"
-  
-  // For custom fonts you can use any UIFont. For colors use UIColor.
-  // For this example I've used "Oswald-Regular" and "Oswald-Bold" fonts.
-  var customConfig = DownSwiftConfig()
-  
-  customConfig.regularFont = customRegularFont
-  customConfig.boldFont = customBoldFont
-  customConfig.boldColor = .systemBlue
-  customConfig.italicColor = .systemRed
-  customConfig.strikethroughLineColor = .gray
-  
-  yourTextLabel.attributedText = downSwift.parse(string, config: customConfig)
+    textLabel.attributedText = downSwift.parse(string)
 ```
 Output:
 
