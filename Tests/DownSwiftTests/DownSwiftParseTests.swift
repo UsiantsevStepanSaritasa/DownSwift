@@ -19,220 +19,237 @@ class DownSwiftParseTests: XCTestCase {
         try super.tearDownWithError()
     }
     
+    let boldAttr = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 30), NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single] as [NSAttributedString.Key : Any]
+    let italicAttr = [NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 30), NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single] as [NSAttributedString.Key : Any]
+    let strikethroughAttr = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30), NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single] as [NSAttributedString.Key : Any]
+    
     func testOnlyRegularArea() {
         let string = "Hello and welcome to the test area!"
-        let rightExpression = [Text(textStyle: .regular, string: "Hello and welcome to the test area!")]
+        let rightExpression = [TextArea(areaSymbol: nil, string: "Hello and welcome to the test area!")]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing area with only regular style FAILED!")
+        XCTAssertEqual(string.textAreas(config: [:]), rightExpression, "Tokenizing area with only regular style FAILED!")
     }
 
     func testOneBoldArea() {
         let string = "Hello and *welcome* to the test area!"
         let rightExpression = [
-            Text(textStyle: .regular, string: "Hello and "),
-            Text(textStyle: .bold, string: "welcome"),
-            Text(textStyle: .regular, string: " to the test area!")
+            TextArea(areaSymbol: nil, string: "Hello and "),
+            TextArea(areaSymbol: "*", string: "welcome"),
+            TextArea(areaSymbol: nil, string: " to the test area!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing one bold area FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Tokenizing one bold area FAILED!")
     }
 
     func testMultipleBoldAreas() {
         let string = "Hello and *welcome* to the *test area!* We are happy that you are *here*!!!"
         let rightExpression = [
-            Text(textStyle: .regular, string: "Hello and "),
-            Text(textStyle: .bold, string: "welcome"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .bold, string: "test area!"),
-            Text(textStyle: .regular, string: " We are happy that you are "),
-            Text(textStyle: .bold, string: "here"),
-            Text(textStyle: .regular, string: "!!!")
+            TextArea(areaSymbol: nil, string: "Hello and "),
+            TextArea(areaSymbol: "*", string: "welcome"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "*", string: "test area!"),
+            TextArea(areaSymbol: nil, string: " We are happy that you are "),
+            TextArea(areaSymbol: "*", string: "here"),
+            TextArea(areaSymbol: nil, string: "!!!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing multiple bold areas FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Tokenizing multiple bold areas FAILED!")
     }
 
     func testOneItalicArea() {
         let string = "Hello and ~welcome~ to the test area!"
         let rightExpression = [
-            Text(textStyle: .regular, string: "Hello and "),
-            Text(textStyle: .italic, string: "welcome"),
-            Text(textStyle: .regular, string: " to the test area!")
+            TextArea(areaSymbol: nil, string: "Hello and "),
+            TextArea(areaSymbol: "~", string: "welcome"),
+            TextArea(areaSymbol: nil, string: " to the test area!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing one italic area FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Tokenizing one italic area FAILED!")
     }
 
     func testMultipleItalicAreas() {
         let string = "Hello and ~welcome~ to the ~test area!~ We are happy that you are ~here!!!~"
         let rightExpression = [
-            Text(textStyle: .regular, string: "Hello and "),
-            Text(textStyle: .italic, string: "welcome"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .italic, string: "test area!"),
-            Text(textStyle: .regular, string: " We are happy that you are "),
-            Text(textStyle: .italic, string: "here!!!")
+            TextArea(areaSymbol: nil, string: "Hello and "),
+            TextArea(areaSymbol: "~", string: "welcome"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "~", string: "test area!"),
+            TextArea(areaSymbol: nil, string: " We are happy that you are "),
+            TextArea(areaSymbol: "~", string: "here!!!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing multiple italic areas FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Tokenizing multiple italic areas FAILED!")
     }
 
     func testOneStrikethroughArea() {
         let string = "Hello and |welcome| to the test area!"
         let rightExpression = [
-            Text(textStyle: .regular, string: "Hello and "),
-            Text(textStyle: .strikethrough, string: "welcome"),
-            Text(textStyle: .regular, string: " to the test area!")
+            TextArea(areaSymbol: nil, string: "Hello and "),
+            TextArea(areaSymbol: "|", string: "welcome"),
+            TextArea(areaSymbol: nil, string: " to the test area!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing one strikethrough area FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Tokenizing one strikethrough area FAILED!")
     }
 
     func testMultipleStrikethroughAreas() {
         let string = "Hello and |welcome| to the |test area!| We are happy that you are |here|!!!"
         let rightExpression = [
-            Text(textStyle: .regular, string: "Hello and "),
-            Text(textStyle: .strikethrough, string: "welcome"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .strikethrough, string: "test area!"),
-            Text(textStyle: .regular, string: " We are happy that you are "),
-            Text(textStyle: .strikethrough, string: "here"),
-            Text(textStyle: .regular, string: "!!!")
+            TextArea(areaSymbol: nil, string: "Hello and "),
+            TextArea(areaSymbol: "|", string: "welcome"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "|", string: "test area!"),
+            TextArea(areaSymbol: nil, string: " We are happy that you are "),
+            TextArea(areaSymbol: "|", string: "here"),
+            TextArea(areaSymbol: nil, string: "!!!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing multiple strikethrough areas FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Tokenizing multiple strikethrough areas FAILED!")
     }
 
     func testAllStylesWithOneAreaForEach() {
         let string = "Hello and *welcome* to the ~test area!~ We are happy that you are |here|!!!"
         let rightExpression = [
-            Text(textStyle: .regular, string: "Hello and "),
-            Text(textStyle: .bold, string: "welcome"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .italic, string: "test area!"),
-            Text(textStyle: .regular, string: " We are happy that you are "),
-            Text(textStyle: .strikethrough, string: "here"),
-            Text(textStyle: .regular, string: "!!!")
+            TextArea(areaSymbol: nil, string: "Hello and "),
+            TextArea(areaSymbol: "*", string: "welcome"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "~", string: "test area!"),
+            TextArea(areaSymbol: nil, string: " We are happy that you are "),
+            TextArea(areaSymbol: "|", string: "here"),
+            TextArea(areaSymbol: nil, string: "!!!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing all styles with one area for each FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Tokenizing all styles with one area for each FAILED!")
     }
 
     func testAllStylesWithMultipleAreas() {
         let string = "Hello and *welcome* to the ~test area!~ We are happy that you are |here|!!! We *want* introduce you a ~big achievement~ but that's not *all*! We're also |a bit upset| that our *test* is ~coming~ to the ~end~ :("
         let rightExpression = [
-            Text(textStyle: .regular, string: "Hello and "),
-            Text(textStyle: .bold, string: "welcome"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .italic, string: "test area!"),
-            Text(textStyle: .regular, string: " We are happy that you are "),
-            Text(textStyle: .strikethrough, string: "here"),
-            Text(textStyle: .regular, string: "!!! We "),
+            TextArea(areaSymbol: nil, string: "Hello and "),
+            TextArea(areaSymbol: "*", string: "welcome"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "~", string: "test area!"),
+            TextArea(areaSymbol: nil, string: " We are happy that you are "),
+            TextArea(areaSymbol: "|", string: "here"),
+            TextArea(areaSymbol: nil, string: "!!! We "),
 
-            Text(textStyle: .bold, string: "want"),
-            Text(textStyle: .regular, string: " introduce you a "),
-            Text(textStyle: .italic, string: "big achievement"),
-            Text(textStyle: .regular, string: " but that's not "),
-            Text(textStyle: .bold, string: "all"),
+            TextArea(areaSymbol: "*", string: "want"),
+            TextArea(areaSymbol: nil, string: " introduce you a "),
+            TextArea(areaSymbol: "~", string: "big achievement"),
+            TextArea(areaSymbol: nil, string: " but that's not "),
+            TextArea(areaSymbol: "*", string: "all"),
 
-            Text(textStyle: .regular, string: "! We're also "),
-            Text(textStyle: .strikethrough, string: "a bit upset"),
-            Text(textStyle: .regular, string: " that our "),
-            Text(textStyle: .bold, string: "test"),
-            Text(textStyle: .regular, string: " is "),
-            Text(textStyle: .italic, string: "coming"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .italic, string: "end"),
-            Text(textStyle: .regular, string: " :("),
+            TextArea(areaSymbol: nil, string: "! We're also "),
+            TextArea(areaSymbol: "|", string: "a bit upset"),
+            TextArea(areaSymbol: nil, string: " that our "),
+            TextArea(areaSymbol: "*", string: "test"),
+            TextArea(areaSymbol: nil, string: " is "),
+            TextArea(areaSymbol: "~", string: "coming"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "~", string: "end"),
+            TextArea(areaSymbol: nil, string: " :("),
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
     }
-    
+
     func testSymbolSkip() {
         let string = "Hello and *welcome\\** to the ~test \\~area!~ We are \\*happy that you are |here|!!!"
         let rightExpression = [
-            Text(textStyle: .regular, string: "Hello and "),
-            Text(textStyle: .bold, string: "welcome*"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .italic, string: "test ~area!"),
-            Text(textStyle: .regular, string: " We are *happy that you are "),
-            Text(textStyle: .strikethrough, string: "here"),
-            Text(textStyle: .regular, string: "!!!")
+            TextArea(areaSymbol: nil, string: "Hello and "),
+            TextArea(areaSymbol: "*", string: "welcome*"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "~", string: "test ~area!"),
+            TextArea(areaSymbol: nil, string: " We are *happy that you are "),
+            TextArea(areaSymbol: "|", string: "here"),
+            TextArea(areaSymbol: nil, string: "!!!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Symbol skip FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Symbol skip FAILED!")
     }
-    
+
     func testAllStylesWithMultipleAreasWithCustomStart() {
         let string = "*Hello* and *welcome* to the ~test area!~ We are happy that you are |here|!!! We *want* introduce you a ~big achievement~ but that's not *all*! We're also |a bit upset| that our *test* is ~coming~ to the ~end~ :("
         let rightExpression = [
-            Text(textStyle: .bold, string: "Hello"),
-            Text(textStyle: .regular, string: " and "),
-            Text(textStyle: .bold, string: "welcome"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .italic, string: "test area!"),
-            Text(textStyle: .regular, string: " We are happy that you are "),
-            Text(textStyle: .strikethrough, string: "here"),
-            Text(textStyle: .regular, string: "!!! We "),
+            TextArea(areaSymbol: "*", string: "Hello"),
+            TextArea(areaSymbol: nil, string: " and "),
+            TextArea(areaSymbol: "*", string: "welcome"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "~", string: "test area!"),
+            TextArea(areaSymbol: nil, string: " We are happy that you are "),
+            TextArea(areaSymbol: "|", string: "here"),
+            TextArea(areaSymbol: nil, string: "!!! We "),
 
-            Text(textStyle: .bold, string: "want"),
-            Text(textStyle: .regular, string: " introduce you a "),
-            Text(textStyle: .italic, string: "big achievement"),
-            Text(textStyle: .regular, string: " but that's not "),
-            Text(textStyle: .bold, string: "all"),
+            TextArea(areaSymbol: "*", string: "want"),
+            TextArea(areaSymbol: nil, string: " introduce you a "),
+            TextArea(areaSymbol: "~", string: "big achievement"),
+            TextArea(areaSymbol: nil, string: " but that's not "),
+            TextArea(areaSymbol: "*", string: "all"),
 
-            Text(textStyle: .regular, string: "! We're also "),
-            Text(textStyle: .strikethrough, string: "a bit upset"),
-            Text(textStyle: .regular, string: " that our "),
-            Text(textStyle: .bold, string: "test"),
-            Text(textStyle: .regular, string: " is "),
-            Text(textStyle: .italic, string: "coming"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .italic, string: "end"),
-            Text(textStyle: .regular, string: " :("),
+            TextArea(areaSymbol: nil, string: "! We're also "),
+            TextArea(areaSymbol: "|", string: "a bit upset"),
+            TextArea(areaSymbol: nil, string: " that our "),
+            TextArea(areaSymbol: "*", string: "test"),
+            TextArea(areaSymbol: nil, string: " is "),
+            TextArea(areaSymbol: "~", string: "coming"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "~", string: "end"),
+            TextArea(areaSymbol: nil, string: " :("),
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Tokenizing all styles with multiple areas for each FAILED!")
     }
-    
+
     func testSymbolSkipAtTheStartOfString() {
         let string = "\\*Hello and *welcome\\** to the ~test \\~area!~ We are \\*happy that you are |here|!!!"
         let rightExpression = [
-            Text(textStyle: .regular, string: "*Hello and "),
-            Text(textStyle: .bold, string: "welcome*"),
-            Text(textStyle: .regular, string: " to the "),
-            Text(textStyle: .italic, string: "test ~area!"),
-            Text(textStyle: .regular, string: " We are *happy that you are "),
-            Text(textStyle: .strikethrough, string: "here"),
-            Text(textStyle: .regular, string: "!!!")
+            TextArea(areaSymbol: nil, string: "*Hello and "),
+            TextArea(areaSymbol: "*", string: "welcome*"),
+            TextArea(areaSymbol: nil, string: " to the "),
+            TextArea(areaSymbol: "~", string: "test ~area!"),
+            TextArea(areaSymbol: nil, string: " We are *happy that you are "),
+            TextArea(areaSymbol: "|", string: "here"),
+            TextArea(areaSymbol: nil, string: "!!!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Symbol skip at the start of sentence FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Symbol skip at the start of sentence FAILED!")
     }
-    
+
     func testSymbolAfterTextArea() {
         let string = "\\*Hello and *welcome*\\*\\* to the ~test \\~area!~\\* We are \\*happy that you are |here|\\*!!!"
         let rightExpression = [
-            Text(textStyle: .regular, string: "*Hello and "),
-            Text(textStyle: .bold, string: "welcome"),
-            Text(textStyle: .regular, string: "** to the "),
-            Text(textStyle: .italic, string: "test ~area!"),
-            Text(textStyle: .regular, string: "* We are *happy that you are "),
-            Text(textStyle: .strikethrough, string: "here"),
-            Text(textStyle: .regular, string: "*!!!")
+            TextArea(areaSymbol: nil, string: "*Hello and "),
+            TextArea(areaSymbol: "*", string: "welcome"),
+            TextArea(areaSymbol: nil, string: "** to the "),
+            TextArea(areaSymbol: "~", string: "test ~area!"),
+            TextArea(areaSymbol: nil, string: "* We are *happy that you are "),
+            TextArea(areaSymbol: "|", string: "here"),
+            TextArea(areaSymbol: nil, string: "*!!!")
         ]
+        let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
 
-        XCTAssertEqual(string.textAreas(), rightExpression, "Symbol skip after text area FAILED!")
+        XCTAssertEqual(string.textAreas(config: testConfig), rightExpression, "Symbol skip after TextArea area FAILED!")
     }
-    
+
     func testPerfomanceMeasure() {
         measure {
             let string = "*Hello* and \\**welcome* to the ~test \\~area!~ We are happy that you are |here|!!! We *want* introduce you a ~big achievement~ but that's not *all*! We're also |a bit upset| that our *test* is ~coming~ to the ~end~ :("
             let array = Array(repeating: string, count: 100)
+            let testConfig: [Character: [NSAttributedString.Key : Any]] = ["*": boldAttr, "~": italicAttr, "|": strikethroughAttr]
             
             for str in array {
-                _ = str.textAreas()
+                _ = str.textAreas(config: testConfig)
             }
         }
     }

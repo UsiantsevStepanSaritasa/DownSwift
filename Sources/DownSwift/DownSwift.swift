@@ -8,6 +8,9 @@
 import UIKit
 
 public final class DownSwift {
+    private var textStyleAreas: [Character: [NSAttributedString.Key: Any]] = [:]
+    private var regularStyleAttributes: [NSAttributedString.Key: Any] = [:]
+    
     public init() {}
     
     /**
@@ -15,38 +18,44 @@ public final class DownSwift {
      
      - Parameters:
        - string: String with defined text style areas.
-       - config: An entity for managing markdown's configuration.
-       - textStyle: An entity of text styles that described by characters.
      
      - Warning
-     Text style areas have to be put straight one after another in string. Don't mix different text styles.
+     Text style areas have to be put consecutively in string: one after another. Don’t mix different text styles.
      */
-    public func parse(_ string: String, config: DownSwiftConfig = DownSwiftConfig()) -> NSAttributedString {
+    public func parse(_ string: String) -> NSAttributedString {
         let attributedString = NSMutableAttributedString()
         
-        for textArea in string.textAreas() {
+        for textArea in string.textAreas(config: textStyleAreas) {
             let currentAttributedString = NSMutableAttributedString(string: textArea.string)
             
-            switch textArea.textStyle {
-            case .regular:
-                currentAttributedString.addConfigAttributes(configFont: config.regularFont, configColor: config.regularFontColor)
-            case .bold:
-                currentAttributedString.addConfigAttributes(configFont: config.boldFont, configColor: config.boldColor)
-            case .italic:
-                currentAttributedString.addConfigAttributes(configFont: config.italicFont, configColor: config.italicColor)
-            case .strikethrough:
-                currentAttributedString.addConfigAttributes(
-                    configFont: config.strikethroughFont,
-                    configColor: config.strikethroughFontColor,
-                    strikethroughStyle: (NSUnderlineStyle.single, config.strikethroughLineColor)
-                )
-            default:
-                break
+            if let areaSymbol = textArea.areaSymbol, let attributes = textStyleAreas[areaSymbol] {
+                currentAttributedString.addAttributes(attributes, range: NSMakeRange(0, currentAttributedString.length))
+            } else {
+                currentAttributedString.addAttributes(regularStyleAttributes, range: NSMakeRange(0, currentAttributedString.length))
             }
 
             attributedString.append(currentAttributedString)
         }
         
         return attributedString
+    }
+    
+    /**
+     Registers tag for text style area.
+     
+     - Parameters:
+       - tag: `Character` that will be used for defining text areas.
+       - attributes: A dictionary of attributes for `NSAttributedString` that will be applied to the text area which is specified by a given tag.
+     
+     If you need to define attributes for `regular` text style then place `nil` in `tag` parameter.
+     */
+    public func register(tag: Character?, attributes: [NSAttributedString.Key: Any]) {
+        if tag == "\\" { return }
+        
+        if let tag = tag {
+            textStyleAreas[tag] = attributes
+        } else {
+            regularStyleAttributes = attributes
+        }
     }
 }
